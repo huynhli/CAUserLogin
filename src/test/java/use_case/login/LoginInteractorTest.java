@@ -41,26 +41,25 @@ public class LoginInteractorTest {
     @Test
     public void successUserLoggedInTest() {
         LoginInputData inputData = new LoginInputData("Paul", "password");
-        InMemoryUserDataAccessObject userRepository = new InMemoryUserDataAccessObject();
+        InMemoryUserDataAccessObject userRepository2 = new InMemoryUserDataAccessObject();
 
         // For the success test, we need to add Paul to the data access repository before we log in.
         UserFactory factory = new CommonUserFactory();
         User user = factory.create("Paul", "password");
-        userRepository.save(user);
+        userRepository2.save(user);
 
         // This creates a successPresenter that tests whether the test case is as we expect.
-        LoginInputBoundary interactor = getLoginInputBoundary(userRepository);
-        assertNull(userRepository.getCurrentUsername());
+        LoginInputBoundary interactor = getLoginInputBoundary(userRepository2);
+        assertNull(userRepository2.getUsername());
 
         interactor.execute(inputData);
     }
 
-    @NotNull
-    private static LoginInputBoundary getLoginInputBoundary(LoginUserDataAccessInterface userRepository) {
+    private static LoginInputBoundary getLoginInputBoundary(LoginUserDataAccessInterface userRepository2) {
         LoginOutputBoundary successPresenter = new LoginOutputBoundary() {
             @Override
             public void prepareSuccessView(LoginOutputData user) {
-                assertEquals("Paul", ((InMemoryUserDataAccessObject) userRepository).getCurrentUsername());
+                assertEquals("Paul", userRepository2.getCurrentUsername());
             }
 
             @Override
@@ -69,7 +68,7 @@ public class LoginInteractorTest {
             }
         };
 
-        return new LoginInteractor(userRepository, successPresenter);
+        return new LoginInteractor(userRepository2, successPresenter);
     }
 
     @Test
