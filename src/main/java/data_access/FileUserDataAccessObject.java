@@ -94,7 +94,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface,
 
     @Override
     public void setCurrentUser(String name) {
-
+        accounts.put(name, this.get(name));
     }
 
     public String getUsername() {
@@ -102,7 +102,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface,
     }
 
     @Override
-    public String getCurrentUsername() {
+    public String getCurrentUser() {
         return "";
     }
 
