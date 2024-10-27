@@ -55,7 +55,6 @@ public class LoginInteractorTest {
         interactor.execute(inputData);
     }
 
-    @NotNull
     private static LoginInputBoundary getLoginInputBoundary(LoginUserDataAccessInterface userRepository2) {
         LoginOutputBoundary successPresenter = new LoginOutputBoundary() {
             @Override
